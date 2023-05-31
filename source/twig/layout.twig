@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Hello!</title>
+		<link rel="stylesheet" href="css/style.min.css">
+	</head>
+
+	<body>
+		<main>
+			{# Сюда подставляется содержимое одноименного блока из файла страницы, в котором прописано подключение layout #}
+			{% block main %}
+				{# Если на странице нет такого блока, используется это содержимое по умолчанию #}
+				Страница в разработке
+			{% endblock %}
+		</main>
+
+		{% block modal %}{% endblock %}
+
+		{% include 'base/scripts.twig' %}
+	</body>
+</html>

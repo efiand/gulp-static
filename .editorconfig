@@ -1,0 +1,17 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.svg]
+# Векторные изображения могут храниться в минифицированном виде, лишняя строка не нужна
+insert_final_newline = false
+
+[*.twig]
+# Ограничения расширения https://marketplace.visualstudio.com/items?itemName=mblode.twig-language-2
+indent_style = tab
