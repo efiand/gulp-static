@@ -30,8 +30,8 @@ import { htmlValidator } from 'gulp-w3c-html-validator';
 import { stacksvg } from 'gulp-stacksvg';
 
 const { src, dest, series, parallel, watch } = gulp;
-const isDev = process.argv.includes('--dev');
-const isTest = process.argv.includes('--lint');
+const isDev = process.argv.includes('dev');
+const isTest = process.argv.includes('lint');
 const isBuild = !isDev && !isTest;
 const Files = {
   BUILD: isBuild ? 'build' : 'dev',
@@ -147,7 +147,7 @@ const buildScripts = () =>
     .pipe(dest(`${Files.BUILD}/js`));
 
 const lintScripts = () =>
-  src('source/js/**/*.{js,ts}')
+  src('source/{data,js}/**/*.{js,ts}')
     .pipe(eslint({ fix: false }))
     .pipe(eslint.format())
     .pipe(gulpIf(!isDev, eslint.failAfterError()));
@@ -189,7 +189,7 @@ const createSprite = () =>
 
 const copyStatic = () => src('static/**/*').pipe(dest('build'));
 
-const clean = () => deleteAsync('build');
+const cleanBuild = () => deleteAsync('build');
 
 // START
 
@@ -206,9 +206,10 @@ const start = () => {
     ui: false
   });
 
-  watch('source/{data,twig}/**/*.{js,twig}', series(processHtml, reload));
-  watch('source/sass/**/*.scss', series(lintStyles, buildStyles, reload));
-  watch('source/js/**/*.{js,ts}', series(lintScripts, buildScripts, reload));
+  watch('source/twig/**/*.twig', series(processHtml, lintHtml, reload));
+  watch('source/sass/**/*.scss', series(parallel(lintStyles, buildStyles), reload));
+  watch('source/data/**/*.{js,ts}', series(parallel(lintScripts, processHtml), reload));
+  watch('source/js/**/*.{js,ts}', series(parallel(lintScripts, buildScripts), reload));
   watch('{source,static}/img/**/*.{jpg,png}').on('all', (event, path) => {
     if (['add', 'change'].includes(event, path)) {
       const img = path.replace(/\\/g, '/');
@@ -226,9 +227,9 @@ const start = () => {
 
 // SERIES
 
-const compile = series(clean, parallel(processHtml, buildScripts, buildStyles, createSprite, processImages));
-const build = series(compile, copyStatic, postprocessHTML);
-const dev = series(compile, start);
-const test = series(processHtml, parallel(lintEditorconfig, lintHtml, lintScripts, lintStyles));
+const compile = parallel(processHtml, buildScripts, buildStyles, createSprite, processImages);
+const lint = parallel(lintEditorconfig, lintHtml, lintScripts, lintStyles);
 
-export default isDev ? dev : isTest ? test : build;
+export const build = series(cleanBuild, compile, copyStatic, postprocessHTML);
+export const dev = series(compile, parallel(lint, start));
+export const test = series(processHtml, lint);

@@ -37,11 +37,11 @@
     "svgo": "2.8.0"
   },
   "scripts": {
-    "build": "gulp",
+    "build": "gulp build",
     "dev": "npm start",
     "lint": "npm test",
-    "start": "gulp --dev",
-    "test": "gulp --lint"
+    "start": "gulp dev",
+    "test": "gulp test"
   },
   "browserslist": [
     "last 6 versions",
