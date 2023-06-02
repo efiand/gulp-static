@@ -182,7 +182,7 @@ const processImages = () =>
 const createSprite = () =>
   src('source/sprite/**/*.svg')
     .pipe(imagemin([svgo(svgoConfig)]))
-    .pipe(stacksvg({ output: `sprite` }))
+    .pipe(stacksvg({ output: 'sprite' }))
     .pipe(dest(`${Files.BUILD}/img`));
 
 // BUILD
