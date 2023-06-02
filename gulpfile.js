@@ -31,7 +31,7 @@ import { stacksvg } from 'gulp-stacksvg';
 
 const { src, dest, series, parallel, watch } = gulp;
 const isDev = process.argv.includes('dev');
-const isTest = process.argv.includes('lint');
+const isTest = process.argv.includes('test');
 const isBuild = !isDev && !isTest;
 const Files = {
   BUILD: isBuild ? 'build' : 'dev',
@@ -54,6 +54,7 @@ const processHtml = () =>
       })
     )
     .pipe(twig())
+    .pipe(gulpIf(!isBuild, replace(/\s*\/>/s, '>')))
     .pipe(dest(Files.BUILD));
 
 const postprocessHTML = () =>
