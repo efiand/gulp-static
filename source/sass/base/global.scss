@@ -1,3 +1,12 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  overflow-anchor: none;
+}
+
 body {
   min-width: 320px;
   margin: 0;
@@ -6,4 +15,14 @@ body {
 img {
   max-width: 100%;
   height: auto;
+}
+
+a {
+  text-decoration-skip-ink: none;
+  color: inherit;
+}
+
+picture,
+source {
+  display: contents;
 }
