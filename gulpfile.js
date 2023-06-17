@@ -75,8 +75,8 @@ const postprocessHTML = () =>
     .pipe(dest('build'));
 
 const lintHtml = () =>
-  src(`${Files.BUILD}/**/*.html`)
-    .pipe(htmlValidator.analyzer())
+  src(`{${Files.BUILD},static}/**/*.html`)
+    .pipe(htmlValidator.analyzer({ ignoreMessages: /^Trailing slash/ }))
     .pipe(htmlValidator.reporter({ throwErrors: true }))
     .pipe(bemlinter());
 
