@@ -31,9 +31,9 @@
     "postcss-scss": "4.0.6",
     "postcss-sort-media-queries": "4.3.0",
     "pre-commit": "1.2.2",
-    "stylelint": "13.13.1",
-    "stylelint-config-htmlacademy": "0.1.11",
-    "stylelint-order-htmlacademy": "2.0.6",
+    "stylelint": "15.10.1",
+    "stylelint-config-htmlacademy": "1.1.5",
+    "stylelint-order-htmlacademy": "2.1.0",
     "svgo": "2.8.0"
   },
   "scripts": {
