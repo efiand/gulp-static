@@ -1,0 +1,28 @@
+$min-tablet-width: 768px;
+$min-desktop-width: 1280px;
+
+$mobile: "(max-width: #{$min-tablet-width - 1})";
+$mobile-tablet: "(max-width: #{$min-desktop-width - 1})";
+$tablet-desktop: "(min-width: #{$min-tablet-width})";
+$desktop: "(min-width: #{$min-desktop-width})";
+$tablet: "#{$tablet-desktop} and #{$mobile-tablet}";
+
+@media #{$mobile} {
+  /* Styles for mobile */
+}
+
+@media #{$mobile-tablet} {
+  /* Styles for mobile and tablet */
+}
+
+@media #{$tablet} {
+  /* Styles for tablet */
+}
+
+@media #{$tablet-desktop} {
+  /* Styles for tablet and desktop */
+}
+
+@media #{$desktop} {
+  /* Styles for desktop */
+}
